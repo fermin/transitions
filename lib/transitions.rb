@@ -26,11 +26,11 @@ module Transitions
       block ? @state_machine.update(options, &block) : @state_machine
     end
 
-    def for_select
+    def state_for_select
       @state_machine.states.map{|s| s.for_select}
     end
 
-    def for_select_hash
+    def state_for_select_hash
       @state_machine.states.inject({}) {|a, s| a.merge(s.name.to_s => s.display_name)}
     end
 
