@@ -27,6 +27,15 @@ module ActiveModel
       after_initialize :set_initial_state
       validate :state_presence
       validate :state_inclusion
+
+      self.send(:define_method, "#{transitions_state_column_name.to_s}_display") do
+        states = self.class.state_machine.states.select{|s| s.name == self.attributes[transitions_state_column_name.to_s]}
+        if states
+          states.first.display_name
+        else
+          read_state
+        end
+      end
     end
 
     # The optional options argument is passed to find when reloading so you may
